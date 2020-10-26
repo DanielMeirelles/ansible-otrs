@@ -3,4 +3,5 @@
 - include: 'repo.yml'
 - include: 'apache.yml'
 - include: 'mysql.yml'
+- include: 'otrs.yml'
 ---
