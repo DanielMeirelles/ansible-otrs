@@ -1,39 +1,38 @@
-Role Name
+Nome do papel
 =========
 
-A brief description of the role goes here.
+Uma breve descrição da função vai aqui.
 
-Requirements
+Requisitos
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Quaisquer pré-requisitos que possam não ser cobertos pelo próprio Ansible ou pela função devem ser mencionados aqui. Por exemplo, se a função usa o módulo EC2, pode ser uma boa ideia mencionar nesta seção que o pacote boto é necessário.
 
-Role Variables
+Variáveis de função
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Uma descrição das variáveis ​​configuráveis ​​para esta função deve ir aqui, incluindo quaisquer variáveis ​​que estão em defaults / main.yml, vars / main.yml e quaisquer variáveis ​​que podem / devem ser definidas por meio de parâmetros para a função. Quaisquer variáveis ​​lidas de outras funções e / ou do escopo global (ou seja, hostvars, group vars, etc.) devem ser mencionadas aqui também.
 
-Dependencies
+Dependências
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Uma lista de outras funções hospedadas no Galaxy deve ir aqui, além de quaisquer detalhes em relação aos parâmetros que podem precisar ser definidos para outras funções ou variáveis ​​que são usadas em outras funções.
 
-Example Playbook
+Manual de exemplo
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Incluir um exemplo de como usar sua função (por exemplo, com variáveis ​​passadas como parâmetros) é sempre bom para os usuários também:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+    - hosts: servidores
+      papéis:
+         - {papel: nome_de_usuário.nomedecurso, x: 42}
 
-License
+Licença
 -------
 
 BSD
 
-Author Information
+Informação sobre o autor
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
-# ansible-otrs
+Uma seção opcional para que os autores da função incluam informações de contato ou um site (HTML não é permitido).
