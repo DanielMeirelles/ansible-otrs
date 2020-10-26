@@ -23,9 +23,9 @@ Manual de exemplo
 
 Incluir um exemplo de como usar sua função (por exemplo, com variáveis ​​passadas como parâmetros) é sempre bom para os usuários também:
 
-    - hosts: servidores
-      papéis:
-         - {papel: nome_de_usuário.nomedecurso, x: 42}
+    - hosts: servers
+      roles:
+         - { role: username.rolename, x: 42 }
 
 Licença
 -------
