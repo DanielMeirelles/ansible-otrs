@@ -1,2 +1,6 @@
 ---
 # tasks file for ansible-otrs
+- include: 'repo.yml'
+- include: 'apache.yml'
+- include: 'mysql.yml'
+---
