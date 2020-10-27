@@ -1,5 +1,6 @@
-- name: Desabilistar SELINUX
-  shell: sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+- name: Disable SELinux
+  ansible.posix.selinux:
+    state: disabled
 
 - name: Populate service facts
   service_facts:
