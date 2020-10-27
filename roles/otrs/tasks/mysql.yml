@@ -1,79 +1,76 @@
----
 
-  - name: MariaDB | Install database
-    yum:
-      name: 
-      - mariadb
-      - mariadb-server
-      - MySQL-python
-      state: latest
-
-  - name: MariaDB | Starting and enabled database
-    service:
-      name: mariadb
-      state: started
-      enabled: yes
-
-  - name: MariaDB | Create a new pass for root user
-    command: openssl rand -base64 6 creates=/root/.my.cnf
-    register: mysql_root_pass
-  
-  - name: MariaDB | Display new pass in playbook  output
-    debug:
-      msg: "New root pass: {{mysql_root_pass.stdout}}"
-    when: mysql_root_pass.changed
-
-  - name: MariaDB | Remove anonymous access
-    mysql_user: name="" host={{ item }} state=absent
-    with_items:
-      - localhost
-      - "{{ ansible_fqdn }}"
-
-  - name: MariaDB | Remove test database
-    mysql_db: name=test state=absent
-
-  - name: MariaDB | Change root pass
-    mysql_user: name=root host={{ item }} password={{ mysql_root_pass.stdout}}
-    with_items:
-      - "{{ansible_fqdn}}"
-      - 127.0.0.1
-      - ::1
-      - localhost
-    when: mysql_root_pass.changed
-
+#
+  #- name: MariaDB | Install database
+  #  yum:
+  #    name: 
+  #    - mariadb
+  #    - mariadb-server
+  #    - MySQL-python
+  #    state: latest
+#
+  #- name: MariaDB | Starting and enabled database
+  #  service:
+  #    name: mariadb
+  #    state: started
+  #    enabled: yes
+#
+  #- name: MariaDB | Create a new pass for root user
+  #  command: openssl rand -base64 6 creates=/root/.my.cnf
+  #  register: mysql_root_pass
+  #
+  #- name: MariaDB | Display new pass in playbook  output
+  #  debug:
+  #    msg: "New root pass: {{mysql_root_pass.stdout}}"
+  #  when: mysql_root_pass.changed
+#
+  #- name: MariaDB | Remove anonymous access
+  #  mysql_user: name="" host={{ item }} state=absent
+  #  with_items:
+  #    - localhost
+  #    - "{{ ansible_fqdn }}"
+#
+  #- name: MariaDB | Remove test database
+  #  mysql_db: name=test state=absent
+#
+  #- name: MariaDB | Change root pass
+  #  mysql_user: name=root host={{ item }} password={{ mysql_root_pass.stdout}}
+  #  with_items:
+  #    - "{{ansible_fqdn}}"
+  #    - 127.0.0.1
+  #    - ::1
+  #    - localhost
+  #  when: mysql_root_pass.changed
+#
   - name: MariaDB | Publish file .my.cnf in the root home
     template:
       src: client-my-cnf.j2
       dest: /root/.my.cnf
     when: mysql_root_pass.changed
+  
+  - name: copy my.cnf
+    copy:
+    src: ./roles/otrs/templates/my.cnf.j2
+    dest: /etc/my.cnf
+    mode: 0600
 
+  - name: criar base de dados otrs
+    mysql_db:
+      name: otrs
+      state: present
+      login_user: root
+      login_password: "{{ mysql_root_pass.stdout }}"
+  
+  - name: criar usuário otrs
+    mysql_user:
+      login_user: root
+      login_password: "{{ mysql_root_pass.stdout}}"
+      name: "{{ user_name }}"
+      password: "{{ user_pw }}"
+      priv: '*.*:ALL,GRANT'
+      state: present
+      host: '%'
 
-
-
-    #- name: copy my.cnf
-#  copy:
-#   src: ./roles/otrs/templates/my.cnf.j2
-#    dest: /etc/my.cnf
-#    mode: 0600
-
-#- name: criar base de dados otrs
-#  mysql_db:
-#    name: otrs
-#    state: present
-#    login_user: root
-#    login_password: "{{ mysql_root_password }}"
-
-#- name: criar usuário otrs
-# mysql_user:
-#   login_user: root
-#   login_password: "{{ mysql_root_password }}"
-#    name: "{{ user_name }}"
-#    password: "{{ user_pw }}"
-#    priv: '*.*:ALL,GRANT'
-#    state: present
-#    host: '%'
-
-#- name: importar otrs-schema.mysql.sql
+    #- name: importar otrs-schema.mysql.sql
 #  mysql_db:
 #    login_user: root
 #    login_password: "{{ mysql_root_password }}"
