@@ -78,26 +78,24 @@
         state: present
         host: '%'
 
-    #- name: importar otrs-schema.mysql.sql
-#  mysql_db:
-#    login_user: root
-#    login_password: "{{ mysql_root_password }}"
-#    state: import
-#    name: otrs
-#   target: ./roles/mysql/files/otrs-schema.mysql.sql
-
-#- name: importar - otrs-initial_insert.mysql.sql
-#  mysql_db:
-#    login_user: root
-#    login_password: "{{ mysql_root_password }}"
-#    state: import
-#    name: otrs
-#    target: ./roles/mysql/files/otrs-initial_insert.mysql.sql
-
-#- name: importar otrs-schema-post.mysql.sql
-#  mysql_db:
-#    login_user: root
-#    login_password: "{{ mysql_root_password }}"
-#    state: import
-#    name: otrs
-#   target: ./roles/mysql/files/otrs-schema-post.mysql.sql
+    - name: importar otrs-schema.mysql.sql
+      mysql_db:
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        state: import
+        name: otrs
+        target: ./roles/mysql/files/otrs-schema.mysql.sql
+    - name: importar - otrs-initial_insert.mysql.sql
+      mysql_db:
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        state: import
+        name: otrs
+        target: ./roles/mysql/files/otrs-initial_insert.mysql.sql
+    - name: importar otrs-schema-post.mysql.sql
+      mysql_db:
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        state: import
+        name: otrs
+        target: ./roles/mysql/files/otrs-schema-post.mysql.sql
