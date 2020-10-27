@@ -28,7 +28,7 @@
   register: root_password
 
 - name: update expired root user password
-  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql.root.password }}';"
+  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';"
 
 - name: create mysql client user
   mysql_user:
