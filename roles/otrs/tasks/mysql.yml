@@ -58,7 +58,8 @@
       copy:
         src: ./roles/otrs/templates/my.cnf.j2
         dest: /etc/my.cnf
-        mode: 0600
+        mode: 0644
+        
     - name: criar base de dados otrs
       mysql_db:
         name: otrs
