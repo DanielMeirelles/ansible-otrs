@@ -8,7 +8,17 @@
     name: http://repo.openfusion.net/centos7-x86_64/openfusion-release-0.7-1.of.el7.noarch.rpm
     state: present
 
-- name: upgrade de todos os pacotes
+- name: install all updates
   yum:
     name: '*'
+    update_cache: yes
     state: latest
+
+- name: List updated packages
+  shell: rpm -qa --last | grep "$(date +%a\ %d\ %b\ %Y)" |cut -f 1 -d " "
+  register: result
+  args:
+  warn: no
+
+- name: Updates packages
+  debug: msg="{{ result.stdout_lines }}"
