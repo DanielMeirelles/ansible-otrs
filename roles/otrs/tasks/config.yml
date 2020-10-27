@@ -1,40 +1,147 @@
-- name: Template a file to /etc/yum.repos.d/getpagespeed-extras.repo
+- name: Defaults.pm
   template:
-    src: ./roles/otrs/templates/apache2-perl-startup.pl.j2
-    dest: /etc/yum.repos.d/getpagespeed-extras.repo
+    src: ./roles/otrs/templates/Defaults.pm.j2
+    dest: /opt/otrs/Kernel/Config/Defaults.pm
     owner: otrs
     group: apache
-    mode: '0644'
+    mode: '0775'
+
+- name: ConfigAuth.pm
+  template:
+    src: ./roles/otrs/templates/ConfigAuth.pm.j2
+    dest: /opt/otrs/Kernel/Config/ConfigAuth.pm
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: ZZZAAuto.pm
+  template:
+    src: ./roles/otrs/templates/ZZZAAuto.pm.j2
+    dest: /opt/otrs/Kernel/Config/Files/ZZZAAuto.pm
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: ZZZACL.pm
+  template:
+    src: ./roles/otrs/templates/ZZZACL.pm.j2
+    dest: /opt/otrs/Kernel/Config/Files/ZZZACL.pm
+    owner: otrs
+    group: apache
+    mode: '0775'
 
 
+- name: pt_BR.pm
+  template:
+    src: ./roles/otrs/templates/pt_BR.pm.j2
+    dest: /opt/otrs/Kernel/Language/pt_BR.pm
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: logo_otrs.png
+  template:
+    src: ./roles/otrs/files/logo_otrs.png
+    dest: /opt/otrs/var/httpd/htdocs/skins/Agent/default/img/logo_otrs.png
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: logo_otrs_login.png
+  template:
+    src: ./roles/otrs/files/logo_otrs_login.png
+    dest: /opt/otrs/var/httpd/htdocs/skins/Agent/default/img/logo_otrs_login.png
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: ConfigAuth.pm
+  template:
+    src: ./roles/otrs/templates/ConfigAuth.pm.j2
+    dest: opt/otrs/Kernel/Config/ConfigAuth.pm
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: Ticket.xml
+  template:
+    src: ./roles/otrs/templates/Ticket.xml.j2
+    dest: /opt/otrs/Kernel/Config/Files/XML/Ticket.xml
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: AgentTicketPhone.tt
+  template:
+    src: ./roles/otrs/templates/AgentTicketPhone.tt.j2
+    dest: /opt/otrs/Kernel/Output/HTML/Templates/Standard/AgentTicketPhone.tt
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: ConfigAuth.pm
+  template:
+    src: ./roles/otrs/templates/ConfigAuth.pm.j2
+    dest: opt/otrs/Kernel/Config/ConfigAuth.pm
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: AgentTicketActionCommon.tt
+  template:
+    src: ./roles/otrs/templates/AgentTicketActionCommon.tt.j2
+    dest: /opt/otrs/Kernel/Output/HTML/Templates/Standard/AgentTicketActionCommon.tt
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: AgentTicketMove.tt
+  template:
+    src: ./roles/otrs/templates/AgentTicketMove.tt.j2
+    dest: /opt/otrs/Kernel/Output/HTML/Templates/Standard/AgentTicketMove.tt
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: AgentTicketStatusView.pm
+  template:
+    src: ./roles/otrs/templates/AgentTicketStatusView.pm.j2
+    dest: /opt/otrs/Kernel/Modules/AgentTicketStatusView.pm
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: Default.tt
+  template:
+    src: ./roles/otrs/templates/Default.tt.j2
+    dest: /opt/otrs/Kernel/Output/HTML/Templates/Standard/NotificationEvent/Email/Default.tt
+    owner: otrs
+    group: apache
+    mode: '0775'
+
+- name: Core.Default.css
+  template:
+    src: ./roles/otrs/templates/Core.Default.css.j2
+    dest: /opt/otrs/var/httpd/htdocs/skins/Customer/default/css/Core.Default.css
+    owner: otrs
+    group: apache
+    mode: '0775'
 
 
+- name: Default.tt
+  template:
+    src: ./roles/otrs/templates/Default.tt.j2
+    dest: /opt/otrs/Kernel/Output/HTML/Templates/Standard/NotificationEvent/Email/Default.tt
+    owner: otrs
+    group: apache
+    mode: '0775'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    - name: setar permissções
+- name: setar permissções
   become_user: root
   shell: /opt/otrs/bin/otrs.SetPermissions.pl --web-group=apache
  
-    - name: apache | restart
-      service:
-        name: httpd
-        state: restarted
+- name: apache | restart
+  service:
+    name: httpd
+    state: restarted
     
