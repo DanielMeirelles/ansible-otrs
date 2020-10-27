@@ -3,5 +3,5 @@
 - name: Install and configure MariaDB Server
   hosts: vm01
   roles:
-    - role: uniqconsulting.mariadb
+    - role: mariadb
 ...
