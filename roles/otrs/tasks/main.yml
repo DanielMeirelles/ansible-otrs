@@ -1,7 +1,7 @@
 
 # tasks file for ansible-otrs
-#- include: 'repo.yml'
-#- include: 'so.yml'
+- include: 'repo.yml'
+- include: 'so.yml'
 #- include: 'mariadb.yml'
-#- include: 'web.yml'
-- include: 'mysql8.yml'
+- include: 'web.yml'
+#- include: 'mysql8.yml'
