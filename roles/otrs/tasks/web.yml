@@ -1,8 +1,7 @@
 - name: install otrs packages
   yum:
-    name: '{{ item }}'
     state: present
-  with_items:
+    name: 
     - epel-release
     - openssl
     - mod_perl 
@@ -19,4 +18,4 @@
     - "perl(DBD::Pg)"
     - "perl(Authen::NTLM)"
     - perl-DBD-ODBC
-  notify: restart httpd
+    notify: restart httpd
