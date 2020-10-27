@@ -4,3 +4,5 @@
 otrs_rpm_url: http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-6.0.29-02.noarch.rpm
 
 mysql_root_password: WEasd12#*!asd11
+User_name: otrs
+user_pw: WEasd12#*!asd11

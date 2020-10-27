@@ -40,7 +40,7 @@
       template:
         src: client-my-cnf.j2
         dest: /root/.my.cnf
-        when: mysql_root_pass.changed
+        #when: mysql_root_pass.changed
   
     - name: copy my.cnf
       copy:
