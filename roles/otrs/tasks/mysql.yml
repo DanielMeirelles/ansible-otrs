@@ -1,25 +1,21 @@
-  - name: Install MySQL 
-    yum: 
-      state: present
-      name: 
-      - mariadb-server
-
-  - name: Start the MySQL service
-    service: name=mariadb state=started enabled=true
-
-  - name: Change mysql root password and keep track in 
-    shell: |
-      password_match=`awk '/A temporary password is generated for/ {a=$0} END{ print a }' /var/log/mysqld.log | awk '{print $(NF)}'`
-      echo $password_match
-      mysql -uroot -p$password_match --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'PassW0rd!123CPQ'; flush privileges; "
-      echo "[client]"
-      user=root
-      password=PassW0rd!123CPQ > /root/.my.cnf
-    args:
-      creates: /root/.my.cnf
-    register: change_temp_pass
-    notify: restart mariadb
-
-  - meta: flush_handlers
-  - debug:
-      var: change_temp_pass
+- name: install database
+  block:
+  - name: Install MariaDB role and setup
+    include_role:
+      name: uniqconsulting.mariadb
+    vars:
+      mariadb_secure_installation: yes
+      mariadb_databases:
+        - name: '{{ mariadb_db_name }}'
+          collation: utf8_general_ci
+          encoding: utf8
+      mariadb_users_create:
+        - name: '{{ mariadb_db_user }}'
+          hosts:
+          - '{{ mariadb_db_host }}'
+          password: "{{ mariadb_user_password }}"
+          privs:
+          - "{{ mariadb_db_name }}.*:ALL"
+          append_privs: no
+      mariadb_mysqld_config: "{{ mariadb_mysqld_config_otrs }}"
+  when: otrs_skip_db == false
