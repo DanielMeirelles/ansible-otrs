@@ -4,10 +4,16 @@
     state: latest
 
 - name: Repo EXTRAS
-  command: yum install https://extras.getpagespeed.com/release-el7-latest.rpm -y
+  yum:
+    name: https://extras.getpagespeed.com/release-el7-latest.rpm
+    state: present
 
 - name: Repo OPENFUSION
-  command: yum install http://repo.openfusion.net/centos7-x86_64/openfusion-release-0.7-1.of.el7.noarch.rpm -y
+  yum:
+    name: http://repo.openfusion.net/centos7-x86_64/openfusion-release-0.7-1.of.el7.noarch.rpm
+    state: present
 
-- name: ATUALIZAR PACOTES
-  command: yum update -y
+- name: upgrade de todos os pacotes
+  yum:
+    name: '*'
+    state: latest
