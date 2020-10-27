@@ -6,13 +6,19 @@
         - MySQL-python
         state: latest
     
-    - name: MariaDB | Starting and enabled database
+    - name: Copiar arquivo de configuração mysql
+      copy:
+        src: ./roles/otrs/templates/my.cnf.j2
+        dest: /etc/my.cnf
+        mode: 0644
+
+    - name: MariaDB | start
       service:
         name: mariadb
         state: started
         enabled: yes
     
-    - name: MariaDB | Change root pass
+    - name: MariaDB | alterar senha de root
       mysql_user: 
         name: root 
         host: "{{ item }}"
@@ -27,14 +33,8 @@
       template:
         src: client-my-cnf.j2
         dest: /root/.my.cnf
-
-    - name: copy my.cnf
-      copy:
-        src: ./roles/otrs/templates/my.cnf.j2
-        dest: /etc/my.cnf
-        mode: 0644
-  
-    - name: MariaDB | Starting and enabled database
+        
+    - name: MariaDB | restart
       service:
         name: mariadb
         state: restarted
