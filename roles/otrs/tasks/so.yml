@@ -1,5 +1,5 @@
 - name: Disable SELinux
-  ansible.posix.selinux:
+  selinux:
     state: disabled
 
 - name: Populate service facts
