@@ -1,4 +1,4 @@
-- name: install otrs packages
+- name: Instalar Pacotes OTRS
   yum:
     state: present
     name: 
@@ -23,4 +23,13 @@
     - "perl(DBD::mysql)"
     - "perl-namespace-clean"
     - "perl-Sub-Quote"
-    #notify: restart httpd
+  
+- name: Habilitar Cron OTRS
+  become_user: otrs
+  shell: /opt/otrs/bin/Cron.sh restart
+  notify: restart crond
+
+- name: Habilitar Apache
+  service:
+    name: httpd
+    enabled: yes
