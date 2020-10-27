@@ -1,39 +1,39 @@
 ---
 
-- name: install mysql
-  yum:
-    state: present
-    name: 
-    - mysql-community-devel*
-    - mysql-community-server*
-    - MySQL-python
-- name: copy my.cnf
-  copy:
-    src: ./roles/otrs/templates/my.cnf.j2
-    dest: /etc/my.cnf
-    mode: 0600
+#- name: instalar mysql8
+#  yum:
+#    state: present
+#    name: 
+#    - mysql-community-devel*
+#    - mysql-community-server*
+#    - MySQL-python
+#- name: copy my.cnf
+#  copy:
+#    src: ./roles/otrs/templates/my.cnf.j2
+#    dest: /etc/my.cnf
+#    mode: 0600
 
-- name: enable mysql
-  systemd:
-    name: mysqld
-    state: restarted
-    enabled: yes
+#- name: habilitar mysql
+#  systemd:
+#    name: mysqld
+#    state: restarted
+#    enabled: yes
 
-- name: get root password
-  shell: "grep 'A temporary password is generated for root@localhost' /var/log/messages | awk -F ' ' '{print $(NF)}'"
-  register: root_password
+#- name: senha de root
+#  shell: "grep 'A temporary password is generated for root@localhost' /var/log/messages | awk -F ' ' '{print $(NF)}'"
+#  register: root_password
 
-- name: update expired root user password
-  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';"
+#- name: alterar senha de root
+#  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';"
 
-- name: Create a new database with name 'bobdata'
+- name: criar base de dados otrs
   mysql_db:
     name: otrs
     state: present
     login_user: root
     login_password: "{{ mysql_root_password }}"
 
-- name: create mysql client user
+- name: criar usuário otrs
   mysql_user:
     login_user: root
     login_password: "{{ mysql_root_password }}"
@@ -43,10 +43,10 @@
     state: present
     host: '%'
 
-- name: Import file.sql similar to mysql -u <username> -p <password> < hostname.sql
+- name: importar tabelas
   mysql_db:
     login_user: root
     login_password: "{{ mysql_root_password }}"
     state: import
     name: otrs
-    target: ./roles/otrs/files/backup-file.sql
+    target: ./roles/otrs/files/*.sql

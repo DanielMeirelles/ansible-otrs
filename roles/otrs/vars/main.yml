@@ -1,5 +1,5 @@
 ---
 # vars file for ansible-otrs
-#repositórios OTRS
+#repositório OTRS
 otrs_rpm_url: http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-6.0.29-02.noarch.rpm
 

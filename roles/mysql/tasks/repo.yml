@@ -8,7 +8,7 @@
     name: https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
     state: present
 
-- name: install all updates
+- name: yum update
   yum:
     name: '*'
     update_cache: yes
