@@ -25,8 +25,8 @@
     - "perl-Sub-Quote"
   
 - name: Habilitar Cron OTRS
-  become_user: otrs
-  shell: /opt/otrs/bin/Cron.sh restart
+  become_user: root
+  shell: sudo su - otrs -c "/opt/otrs/bin/Cron.sh start"
   notify: restart crond
 
 - name: Habilitar Apache
