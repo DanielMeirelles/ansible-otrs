@@ -3,11 +3,6 @@
     name: epel-release
     state: latest
 
-- name: Repo EXTRAS
-  yum:
-    name: https://extras.getpagespeed.com/release-el7-latest.rpm
-    state: present
-
 - name: Repo OPENFUSION
   yum:
     name: http://repo.openfusion.net/centos7-x86_64/openfusion-release-0.7-1.of.el7.noarch.rpm
