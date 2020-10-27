@@ -2,7 +2,7 @@
   block:
   - name: Install MariaDB role and setup
     include_role:
-      name: uniqconsulting.mariadb
+      name: mariadb
     vars:
       mariadb_secure_installation: yes
       mariadb_databases:
