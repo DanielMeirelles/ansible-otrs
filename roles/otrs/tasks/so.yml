@@ -2,15 +2,12 @@
   selinux:
     state: disabled
 
-- name: Populate service facts
-  service_facts:
+- name: Parar firewalld
+  command: systemctl stop firewalld
+  become: yes
+  changed_when: False
 
-- name: Disable firewalld Services
-  service:
-    name: "{{item}}"
-    state: stopped
-    enabled: no
-  loop:
-   - firewalld
-  when: ansible_facts.services[item] is defined
-  ignore_errors: yes
+- name: Desabilitar firewalld
+  command: systemctl disable firewalld
+  become: yes
+  changed_when: False
