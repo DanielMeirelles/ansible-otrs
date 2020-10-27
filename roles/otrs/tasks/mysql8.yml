@@ -24,7 +24,7 @@
     enabled: yes
 
 - name: get root password
-  shell: "grep 'A temporary password is generated for root@localhost' /var/log/mysqld.log | awk -F ' ' '{print $(NF)}'"
+  shell: "grep 'A temporary password is generated for root@localhost' /var/log/messages | awk -F ' ' '{print $(NF)}'"
   register: root_password
 
 - name: update expired root user password
