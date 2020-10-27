@@ -15,7 +15,7 @@
   copy:
     src: ./roles/otrs/templates/my.cnf.j2
     dest: /etc/my.cnf
-    mode: 0777
+    mode: 0600
 
 - name: enable mysql
   systemd:
