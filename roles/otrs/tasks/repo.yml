@@ -21,11 +21,6 @@
     group: root
     mode: '0644'
 
-- name: Repo mysql8
-  yum:
-    name: https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
-    state: present
-
 - name: install all updates
   yum:
     name: '*'
