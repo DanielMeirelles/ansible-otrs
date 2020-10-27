@@ -22,4 +22,5 @@
     - "perl(Moo)"
     - "perl(DBD::mysql)"
     - "perl-namespace-clean"
+    - "perl-Sub-Quote"
     #notify: restart httpd
