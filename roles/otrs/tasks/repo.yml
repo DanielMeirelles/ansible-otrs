@@ -15,7 +15,7 @@
 
 - name: Template a file to /etc/yum.repos.d/getpagespeed-extras.repo
   template:
-    src: /templates/extras.getpagespeed.j2
+    src: ./roles/otrs/templates/extras.getpagespeed.j2
     dest: /etc/yum.repos.d/getpagespeed-extras.repo
     owner: root
     group: root
