@@ -2,12 +2,11 @@
 
   - name: MariaDB | Install database
     yum:
-      name: '{{ item }}'
-      state: latest
-    with_items:
+      name: 
       - mariadb
       - mariadb-server
       - MySQL-python
+      state: latest
 
   - name: MariaDB | Starting and enabled database
     service:
@@ -34,7 +33,7 @@
     mysql_db: name=test state=absent
 
   - name: MariaDB | Change root pass
-    mysql_user: name=root host={{ item }} password={{ mysql_root_pass.stdout }}
+    mysql_user: name=root host={{ item }} password={{ mysql_root_pass.stdout}}
     with_items:
       - "{{ansible_fqdn}}"
       - 127.0.0.1
@@ -49,7 +48,7 @@
     when: mysql_root_pass.changed
 
 
-    
+
 
     #- name: copy my.cnf
 #  copy:
