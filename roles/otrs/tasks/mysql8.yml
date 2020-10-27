@@ -17,11 +17,11 @@
     dest: /etc/my.cnf
     mode: 0600
 
-#- name: enable mysql
-#  systemd:
-#    name: mysqld
-#    state: restarted
-#    enabled: yes
+- name: enable mysql
+  systemd:
+    name: mysqld
+    state: restarted
+    enabled: yes
 
 - name: get root password
   shell: "grep 'A temporary password is generated for root@localhost' /var/log/messages | awk -F ' ' '{print $(NF)}'"
@@ -30,10 +30,17 @@
 - name: update expired root user password
   command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';"
 
+- name: Create a new database with name 'bobdata'
+  mysql_db:
+    name: otrs
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
 - name: create mysql client user
   mysql_user:
     login_user: root
-    login_password: "{{ mysql.root.password }}"
+    login_password: "{{ mysql_root_password }}"
     name: "{{ user_name }}"
     password: "{{ user_pw }}"
     priv: '*.*:ALL,GRANT'
@@ -41,3 +48,9 @@
     host: '%'
   with_items:
     - "{{ mysql.users }}"
+
+- name: Import file.sql similar to mysql -u <username> -p <password> < hostname.sql
+  mysql_db:
+    state: import
+    name: all
+    target: ./roles/otrs/templates/backup-file.sql.j2
