@@ -17,5 +17,8 @@
     - "perl(YAML::XS)"
     - "perl(DBD::Pg)"
     - "perl(Authen::NTLM)"
-    - perl-DBD-ODBC
+    - "perl-DBD-ODBC"
+    - "perl(Moo)"
+    - "perl(DBD::mysql)"
+    
     #notify: restart httpd
