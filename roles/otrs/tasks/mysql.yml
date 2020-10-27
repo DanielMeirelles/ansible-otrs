@@ -44,22 +44,23 @@
   #  - name: MariaDB | Remove test database
   #    mysql_db: name=test state=absent
 
-    - name: MariaDB | Publish file .my.cnf in the root home
-      template:
-        src: client-my-cnf.j2
-        dest: /root/.my.cnf
-    - name: MariaDB | Starting and enabled database
-      service:
-        name: mariadb
-        state: started
-        enabled: yes
-  
+   # - name: MariaDB | Publish file .my.cnf in the root home
+   #   template:
+   #     src: client-my-cnf.j2
+   #     dest: /root/.my.cnf
+
     - name: copy my.cnf
       copy:
         src: ./roles/otrs/templates/my.cnf.j2
         dest: /etc/my.cnf
         mode: 0644
-        
+  
+    - name: MariaDB | Starting and enabled database
+      service:
+        name: mariadb
+        state: restarted
+        enabled: yes
+
     - name: criar base de dados otrs
       mysql_db:
         name: otrs
