@@ -1,18 +1,18 @@
-    - name: MariaDB | Install database
-      yum:
-        name: 
-        - mariadb
-        - mariadb-server
-        - MySQL-python
-        state: latest
-    
-    - name: MariaDB | Starting and enabled database
-      service:
-        name: mariadb
-        state: started
-        enabled: yes
-    
-    #- name: MariaDB | Create a new pass for root user
+#    - name: MariaDB | Install database
+#      yum:
+#        name: 
+#        - mariadb
+#        - mariadb-server
+#        - MySQL-python
+#        state: latest
+#    
+#    - name: MariaDB | Starting and enabled database
+#      service:
+#        name: mariadb
+#        state: started
+#        enabled: yes
+#    
+#    #- name: MariaDB | Create a new pass for root user
     #  command: openssl rand -base64 15 creates=/root/.my.cnf
     #  register: mysql_root_pass
     #  
@@ -60,12 +60,12 @@
         name: otrs
         state: present
         login_user: root
-        login_password: "{{ mysql_root_pass.stdout }}"
+        login_password: "{{mysql_root_password}}"
     
     - name: criar usuário otrs
       mysql_user:
         login_user: root
-        login_password: "{{ mysql_root_pass.stdout}}"
+        login_password: "{{mysql_root_password}}"
         name: "{{ user_name }}"
         password: "{{ user_pw }}"
         priv: '*.*:ALL,GRANT'
