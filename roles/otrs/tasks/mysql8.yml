@@ -50,4 +50,4 @@
     login_password: "{{ mysql_root_password }}"
     state: import
     name: otrs
-    target: ./roles/otrs/templates/backup-file.sql.j2
+    target: ./roles/otrs/files/backup-file.sql
