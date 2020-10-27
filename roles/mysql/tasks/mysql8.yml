@@ -26,22 +26,22 @@
 #- name: alterar senha de root
 #  command: mysql --user root --password={{ root_password.stdout }} --connect-expired-password --execute="ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}';"
 
-- name: criar base de dados otrs
-  mysql_db:
-    name: otrs
-    state: present
-    login_user: root
-    login_password: "{{ mysql_root_password }}"
+#- name: criar base de dados otrs
+#  mysql_db:
+#    name: otrs
+#    state: present
+#    login_user: root
+#    login_password: "{{ mysql_root_password }}"
 
-- name: criar usuário otrs
-  mysql_user:
-    login_user: root
-    login_password: "{{ mysql_root_password }}"
-    name: "{{ user_name }}"
-    password: "{{ user_pw }}"
-    priv: '*.*:ALL,GRANT'
-    state: present
-    host: '%'
+#- name: criar usuário otrs
+#  mysql_user:
+#    login_user: root
+#    login_password: "{{ mysql_root_password }}"
+#    name: "{{ user_name }}"
+#    password: "{{ user_pw }}"
+#    priv: '*.*:ALL,GRANT'
+#    state: present
+#    host: '%'
 
 - name: importar otrs-schema.mysql.sql
   mysql_db:
@@ -49,15 +49,15 @@
     login_password: "{{ mysql_root_password }}"
     state: import
     name: otrs
-    target: ./roles/otrs/files/otrs-schema.mysql.sql
-    
+    target: ./roles/mysql/files/otrs-schema.mysql.sql
+
 - name: importar - otrs-initial_insert.mysql.sql
   mysql_db:
     login_user: root
     login_password: "{{ mysql_root_password }}"
     state: import
     name: otrs
-    target: ./roles/otrs/files/otrs-initial_insert.mysql.sql
+    target: ./roles/mysql/files/otrs-initial_insert.mysql.sql
 
 - name: importar otrs-schema-post.mysql.sql
   mysql_db:
@@ -65,4 +65,4 @@
     login_password: "{{ mysql_root_password }}"
     state: import
     name: otrs
-    target: ./roles/otrs/files/otrs-schema-post.mysql.sql
+    target: ./roles/mysql/files/otrs-schema-post.mysql.sql
