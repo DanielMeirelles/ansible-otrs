@@ -1,16 +1,11 @@
-  - name: Install MySQL 5.7 repo
-    yum: name=http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm state=present
-
-  - name: Install MySQL 5.7
+  - name: Install MySQL 
     yum: 
-      name: '{{ item }}'
-    with_items:
-    - mysql-community-server
-    - mysql-community-client
-    - MySQL-python
+      state: present
+      name: 
+      - mariadb-server
 
   - name: Start the MySQL service
-    service: name=mysqld state=started enabled=true
+    service: name=mariadb state=started enabled=true
 
   - name: Change mysql root password and keep track in 
     shell: |
@@ -23,7 +18,7 @@
     args:
       creates: /root/.my.cnf
     register: change_temp_pass
-    notify: restart mysqld
+    notify: restart mariadb
 
   - meta: flush_handlers
   - debug:
