@@ -18,4 +18,4 @@
     - "perl(DBD::Pg)"
     - "perl(Authen::NTLM)"
     - perl-DBD-ODBC
-    notify: restart httpd
+    #notify: restart httpd
