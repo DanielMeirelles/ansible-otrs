@@ -1,0 +1,273 @@
+package Kernel::Config::ConfigAuth;
+
+use strict;
+use warnings;
+use utf8;
+
+sub Load2 {
+    # Vars General
+    my $Self = shift;
+    $Self->{'Customer::AuthModule1'} = 'Kernel::System::CustomerAuth::DB';
+    $Self->{'Customer::AuthModule::DB::Table1'} = 'customer_user';
+    $Self->{'Customer::AuthModule::DB::CustomerKey1'} = 'login';
+    $Self->{'Customer::AuthModule::DB::CustomerPassword1'} = 'pw';
+
+    $Self->{CustomerUser1} = {
+          Name => 'DB_local',
+          Module => 'Kernel::System::CustomerUser::DB',
+          Params => {
+                    DSN => 'DBI:odbc:localhost',
+                    Type => 'mysql',
+                    DSN => 'DBI:mysql:database=otrs;host=localhost',
+                    User => 'otrs',
+                    Password => 'tLLG2x3xNPjI4mFB',
+                    Table => 'customer_user',
+            },
+       # customer unique id
+        CustomerKey => 'login',
+        # customer #
+        CustomerID => 'customer_id',
+        CustomerValid => 'valid_id',
+        CustomerUserListFields => ['first_name', 'last_name', 'email'],
+        CustomerUserSearchFields => ['login', 'email'],
+        CustomerUserSearchPrefix => '',
+        CustomerUserSearchSuffix => '*',
+        CustomerUserSearchListLimit => 100,
+        CustomerUserPostMasterSearchFields => ['email'],
+        CustomerUserNameFields => ['first_name', 'last_name'],
+        CustomerUserEmailUniqCheck => 1,
+        #Map => [
+           # note: Login, Email and CustomerID needed!
+           # var, frontend, storage, shown (1=always,2=lite), required, storage-type, http-127
+           #[ 'UserCPF', 'CPF', 'title', 1, 1, 'var', '', 0 ],
+           #[ 'UserFirstname',  'Primerio Nome',  'first_name', 1, 1, 'var', '', 0 ],
+           #[ 'UserLastname',   'Ultimo Nome',    'last_name', 1, 1, 'var', '', 0 ],
+           #[ 'UserLogin',      'Login',          'login', 1, 1, 'var', '', 0 ],
+           #[ 'UserPassword',   'Senha',          'pw', 0, 1, 'var', '', 0 ],
+           #[ 'UserEmail',      'Email',          'email', 0, 1, 'var', '', 0 ],
+           #[ 'UserCustomerID', 'CustomerID',     'customer_id', 0, 1, 'var', '', 0 ],
+           #[ 'UserCity',       'Cidade',         'city', 0, 1, 'var', '', 0 ],
+           #[ 'UserComment',    'Description',    'comments', 0, 1, 'var', '', 0 ],
+           #[ 'UserCountry',    'Country',        'country', 0, 1, 'var', '', 0 ],
+           #[ 'UserZip',        'UF',             'zip', 0, 1, 'var', '', 0 ],
+           #[ 'UserStreet',     'Departament',    'street', 0, 1, 'var', '', 0 ],
+           #[ 'UserFax',        'Location',       'fax', 0, 1, 'var', '', 0 ],
+           #[ 'UserMobile',     'Area',           'mobile', 0, 1, 'var', '', 0 ],
+           #[ 'UserState',      'Estado',         'street', 0, 1, 'var', '', 0 ],
+           #[ 'UserPhone',      'Telefone',       'phone', 0, 1, 'var', '', 0 ],
+           # [ 'UserEmail', 'Email', 'email', 1, 1,
+           # 'var','$Env{"CGIHandle"}?Action=AgentTicketCompose&ResponseID=1&TicketID=$Data{"[ 'UserCustomerID', 'CustomerID', 'customer_id', 0, 1, 'var', '', 0 ],
+           # [ 'UserCustomerIDs', 'CustomerIDs', 'customer_ids', 1, 0, 'var', '', 0 ],
+           #[ 'UserComment', 'Comment', 'comments', 1, 0, 'var', '', 0 ],
+           #[ 'ValidID', 'Valid', 'valid_id', 0, 1, 'int', '', 0 ],
+    
+        #],
+            # default selections
+                Selections => {
+             UserCustomerID => {
+                 'NORMAL' => 'NORMAL',
+                 #'Vip' => 'Vip',
+             },
+                },
+    
+      };
+
+
+############ ----------------------------------------------------------------- LDAP CONFIGURATION --------------------------------------------------------- ####
+        # customer unique id
+    # 2. Customer user backend: LDAP
+# (customer ldap backend and settings
+
+    #------------------VARIABLES-------------------#
+    my $BaseDN =   'ou=_Usuarios da CAPES,dc=fc,dc=capes,dc=gov,dc=br';
+    my $Host =   'fc.capes.gov.br';
+    my $SearchUserDN = 'svc_hom_otrs@fc.capes.gov.br';
+    my $SearchUserPw = 'HCjg6GSP-PuNlEIe';
+    #-----------------OCONFIG-----------------------#
+    $Self->{'Customer::AuthModule2'} = 'Kernel::System::CustomerAuth::LDAP';
+    $Self->{'Customer::AuthModule::LDAP::Host2'} = $Host;
+    $Self->{'Customer::AuthModule::LDAP::BaseDN2'} = $BaseDN;
+    $Self->{'Customer::AuthModule::LDAP::UID2'} = 'sAMAccountName';
+    $Self->{'Customer::AuthModule::LDAP::UserAttr2'} = $SearchUserDN;
+    $Self->{'Customer::AuthModule::LDAP::SearchUserDN2'} = $SearchUserDN;
+    $Self->{'Customer::AuthModule::LDAP::SearchUserPw2'} = $SearchUserPw ;
+    #$Self->{'Customer::AuthModule::LDAP::AlwaysFilter2'} = '(objectclass=user)';
+    
+    #$Self->{'AuthModule3'} = 'Kernel::System::Auth::Sync::LDAP';
+    #$Self->{'AuthModule::LDAP::Host3'} = $Host;
+    #$Self->{'AuthModule::LDAP::BaseDN3'} = $BaseDN;
+    #$Self->{'AuthModule::LDAP::UID3'} = 'sAMAccountName';
+    #$Self->{'AuthModule::LDAP::UserAttr3'} = $SearchUserDN;
+    #$Self->{'AuthModule::LDAP::SearchUserDN3'} = $SearchUserDN;
+    #$Self->{'AuthModule::LDAP::SearchUserPw3'} = $SearchUserPw ;
+    #$Self->{'AuthModule::LDAP::AlwaysFilter3'} = '(objectclass=user)';
+    
+    $Self->{CustomerUser2} = {
+            Name => 'LDAP CAPES',
+            Module => 'Kernel::System::CustomerUser::LDAP',
+            #Module => 'Kernel::System::Auth::Sync::LDAP',
+            Params => {
+            # ldap host
+            Host => $Host,
+            # ldap base dn
+            BaseDN => $BaseDN,
+            # search scope (one|sub)
+            SSCOPE => 'sub',
+            # The following is valid but would only be necessary if the
+            # anonymous user does NOT have permission to read from the LDAP tree
+            UserDN => $SearchUserDN,
+            UserPw => $SearchUserPw,
+            # in case you want to add always one filter to each ldap query, use
+            # this option. e. g. AlwaysFilter => '(mail=*)' or AlwaysFilter => '(objectclass=user)'
+            AlwaysFilter => '(&(objectclass=user)(mail=*))',
+            # if both your frontend and your LDAP are unicode, use this:
+                       SourceCharset => 'utf-8',
+                       DestCharset   => 'utf-8',
+            # if your frontend is e. g. iso-8859-1 and the character set of your
+            # ldap server is utf-8, use these options:
+            #        SourceCharset => 'utf-8',
+            #        DestCharset => 'iso-8859-1',
+    
+            # Net::LDAP new params (if needed - for more info see perldoc Net::LDAP)
+            	Params => {
+                    port => 636,
+            #        port => 3268,
+                    scheme => 'ldaps',
+                    timeout => 120,
+            #        async => 0,
+            #        version => 3,
+            	},
+            },
+    
+            # customer unique id
+            #CustomerKey => 'uid',
+            CustomerKey => 'sAMAccountName',
+            # customer #
+            #CustomerID => 'uid',
+            CustomerID => 'mail',
+            #CustomerUserListFields => ['uid', 'mail'],
+            CustomerUserListFields => ['sAMAccountName','cn','mail'],
+            #CustomerUserSearchFields => ['uid','cn','mail'], - Para Novell
+            CustomerUserSearchFields => ['sAMAccountName','cn','mail'],
+            CustomerUserSearchPrefix => '',
+            CustomerUserSearchSuffix => '*',
+            CustomerUserSearchListLimit => 250,
+            CustomerUserPostMasterSearchFields => ['mail'],
+            CustomerUserNameFields => ['givenname','sn'],
+    
+            # show not own tickets in customer panel, CompanyTickets
+            CustomerUserExcludePrimaryCustomerID => 0,
+            # add a ldap filter for valid users (expert setting)
+            # admin can't change customer preferences
+            AdminSetPreferences => 0,
+            CacheTTL => 300,
+            Map => [
+                    # note: Login, Email and CustomerID needed!
+                    # var, frontend, storage, shown (1=always,2=lite), required, storage-type, http-link, readonly
+                    #[ 'UserTitle',      'Codigo Funcionario', 'trtCodFunc',           1, 1, 'var', '', 0 ],
+                    [ 'UserFirstname',  'Firstname',  'givenname',       1, 1, 'var', '', 0 ],
+                    [ 'UserLastname',   'Lastname',   'sn',              1, 1, 'var', '', 0 ],
+                    [ 'UserLogin',      'Login',   'sAMAccountName',  1, 1, 'var', '', 0 ],
+                    [ 'UserEmail',      'Email',      'mail',            1, 1, 'var', '', 0 ],
+                    [ 'UserCustomerID', 'CustomerID', 'mail',  1, 1, 'var', '', 0 ],
+                    [ 'UserPhone',    'Phone',    'telephoneNumber',  1, 0, 'var', '', 0 ],
+                    [ 'UserAddress',    'Address',    'description',     1, 0, 'var', '', 0 ],
+		    [ 'UserComment', 'Andar', 'physicalDeliveryOfficeName', 1, 0, 'var' ],
+		    [ 'UserVIP',     'VIP',   'initials',                   1, 0, 'var' ],
+                    #[ 'UserComment',    'Localizacao',    'physicalDeliveryOfficeName',     1, 0, 'var', '', 0 ],
+                    #[ 'UserLotacao',    'Area',    'company',     1, 0, 'var', '', 0 ],
+                    #[ 'UserCity',    'Departamento',    'department',     1, 0, 'var', '', 0 ],
+                    #[ 'UserZip',    'Andar',    'andar',     1, 0, 'var', '', 0 ],
+                    #[ 'UserCountry',    'Sala',    'sala',     1, 0, 'var', '', 0 ],
+                    #[ 'UserCI',    'Computador (BDGC)',    'sAMAccountName',     1, 0, 'var', '', 0 ],
+    
+            ],
+    
+    };
+    
+    # --------------------------------------------------- #
+    # authentication sync settings                        #
+    # (enable agent data sync. after succsessful          #
+    # authentication)                                     #
+    # --------------------------------------------------- #
+    # This is an example configuration for an LDAP auth sync. backend.
+    # (take care that Net::LDAP is installed!)
+    
+                #### Autenticacao Agent ####
+    #$Self->{AuthSyncModule3} = 'Kernel::System::Auth::Sync::LDAP';
+    #$Self->{'AuthSyncModule::LDAP::Host3'} = 'fc.capes.gov.br'; #'172.19.120.17';
+    #$Self->{'AuthSyncModule::LDAP::BaseDN3'} = 'ou=_Usuarios da CAPES,dc=fc,dc=capes,dc=gov,dc=br'; #'ou=__Usuarios da CAPES,dc=DTI,dc=CGTI,dc=DSOR,dc=SUPORTE';
+    #$Self->{'AuthSyncModule::LDAP::UID3'} = 'sAMAccountName';
+
+    # The following is valid but would only be necessary if the
+    # anonymous user do NOT have permission to read from the LDAP tree
+    
+                #### Autenticacao Agent ####
+    #$Self->{'AuthSyncModule::LDAP::SearchUserDN3'} = 'svc_hom_otrs@fc.capes.gov.br'; #'svc_otrs';
+    #$Self->{'AuthSyncModule::LDAP::SearchUserPw3'} = 'rtxZooe4@VNLZTHMuJNZyhpeqFm'; #'i2jd05vo';
+    #$Self->{'AuthSyncModule::LDAP::AlwaysFilter'} = '(objectclass=user)';
+
+    # AuthSyncModule::LDAP::UserSyncMap
+    # (map if agent should create/synced from LDAP to DB after successful login)
+    # you may specify LDAP-Fields as either
+    #  * list, which will check each field. first existing will be picked ( ["givenName","cn","_empty"] )
+    #  * name of an LDAP-Field (may return empty strings) ("givenName")
+    #  * fixed strings, prefixed with an underscore: "_test", which will always return this fixed string
+    
+    $Self->{'AuthSyncModule::LDAP::UserSyncMap3'} = {
+        # DB -> LDAP
+        UserFirstname => 'givenName',
+        UserLastname  => 'sn',
+        UserEmail     => 'mail',
+    };
+
+    # In case you need to use OTRS in iso-charset, you can define this
+    # by using this option (converts utf-8 data from LDAP to iso).
+    $Self->{'AuthSyncModule::LDAP::Charset'} = 'utf-8';
+
+    # Net::LDAP new params (if needed - for more info see perldoc Net::LDAP)
+    #$Self->{'AuthSyncModule::LDAP::Params'} = {
+    #    port    => 389,
+        #port => 3268,
+    #    timeout => 120,
+    #    async   => 0,
+    #    version => 3,
+    #};
+
+    # Die if backend can't work, e. g. can't connect to server.
+    $Self->{'AuthSyncModule::LDAP::Die'} = 1;
+
+    # Attributes needed for group syncs
+ # (attribute name for group value key)
+ #   $Self->{'AuthSyncModule::LDAP::AccessAttr'} = 'memberUid';
+    # (attribute for type of group content UID/DN for full ldap name)
+#    $Self->{'AuthSyncModule::LDAP::UserAttr'} = 'UID';
+#    $Self->{'AuthSyncModule::LDAP::UserAttr'} = 'DN';
+
+    # AuthSyncModule::LDAP::UserSyncInitialGroups
+    # (sync following group with rw permission after initial create of first agent
+    # login)
+    $Self->{'AuthSyncModule::LDAP::UserSyncInitialGroups'} = [
+        'users',
+    ];
+
+    # UserTable
+    $Self->{DatabaseUserTable}       = 'users';
+    $Self->{DatabaseUserTableUserID} = 'id';
+    $Self->{DatabaseUserTableUserPW} = 'pw';
+    $Self->{DatabaseUserTableUser}   = 'login';
+   
+   # ---------------------------------------------------- #
+   # ---------------------------------------------------- #
+   #                                                      #
+   # end of your own config options!!!                    #
+   #                                                      #
+   # ---------------------------------------------------- #
+    # ---------------------------------------------------- #
+
+# (customer ldap backend and settings)
+# First backend, a LDAP tree
+
+}
+1;
+

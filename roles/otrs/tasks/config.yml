@@ -1,0 +1,40 @@
+- name: Template a file to /etc/yum.repos.d/getpagespeed-extras.repo
+  template:
+    src: ./roles/otrs/templates/apache2-perl-startup.pl.j2
+    dest: /etc/yum.repos.d/getpagespeed-extras.repo
+    owner: otrs
+    group: apache
+    mode: '0644'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    - name: setar permissções
+  become_user: root
+  shell: /opt/otrs/bin/otrs.SetPermissions.pl --web-group=apache
+ 
+    - name: apache | restart
+      service:
+        name: httpd
+        state: restarted
+    
