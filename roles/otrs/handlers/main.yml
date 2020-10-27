@@ -3,11 +3,6 @@
     name: httpd
     state: restarted
 
-- name: restart mariadb
-  service:
-    name: mariadb
-    state: restarted
-
 - name: restart crond
   service:
     name: crond

@@ -1,2 +1,10 @@
 ---
 # vars file for ansible-otrs
+#repositórios OTRS
+otrs_rpm_url: http://ftp.otrs.org/pub/otrs/RPMS/rhel/7/otrs-6.0.29-02.noarch.rpm
+
+
+#senhas de Banco
+mysql_root_password: Ms#!asd1920NM0
+user_name: otrs
+user_pw: tLLG2x3xNPjI4mFB
