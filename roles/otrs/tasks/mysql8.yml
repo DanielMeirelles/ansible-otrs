@@ -1,6 +1,5 @@
 ---
 
-
 - name: install mysql
   yum:
     state: present

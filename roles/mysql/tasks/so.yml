@@ -1,0 +1,13 @@
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: Parar firewalld
+  command: systemctl stop firewalld
+  become: yes
+  changed_when: False
+
+- name: Desabilitar firewalld
+  command: systemctl disable firewalld
+  become: yes
+  changed_when: False

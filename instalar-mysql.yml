@@ -1,0 +1,7 @@
+- hosts: localhost #inventário do grupo de servidor(es) 
+  gather_facts: true #extrai informações das máquinas
+  any_errors_fatal: true  # Aborta execução se algum host não estiver alcançavel
+
+  roles:
+    - mysql
+  
