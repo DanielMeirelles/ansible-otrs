@@ -48,7 +48,11 @@
       template:
         src: client-my-cnf.j2
         dest: /root/.my.cnf
-     
+    - name: MariaDB | Starting and enabled database
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
   
     - name: copy my.cnf
       copy:
