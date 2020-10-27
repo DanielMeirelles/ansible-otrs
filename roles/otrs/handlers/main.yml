@@ -1,2 +1,7 @@
 ---
 # handlers file for ansible-otrs
+handlers:
+  - name: restart mysqld
+    ansible.builtin.service:
+      name: mysqld 
+      state: restarted
