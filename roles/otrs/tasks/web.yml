@@ -1,0 +1,22 @@
+- name: install otrs packages
+  yum:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - epel-release
+    - openssl
+    - mod_perl 
+    - "{{ otrs_rpm_url }}"
+    - "perl(Crypt::Eksblowfish::Bcrypt)" 
+    - "perl(JSON::XS)" 
+    - "perl(GD::Text)" 
+    - "perl(Encode::HanExtra)" 
+    - "perl(GD::Graph)" 
+    - "perl(Mail::IMAPClient)" 
+    - "perl(PDF::API2)" 
+    - "perl(Text::CSV_XS)" 
+    - "perl(YAML::XS)"
+    - "perl(DBD::Pg)"
+    - "perl(Authen::NTLM)"
+    - perl-DBD-ODBC
+  notify: restart httpd
