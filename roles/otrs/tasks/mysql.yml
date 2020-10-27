@@ -20,17 +20,17 @@
     #  debug:
     #    msg: "New root pass: {{mysql_root_pass.stdout}}"
     #  when: mysql_root_pass.changed
-    - name: MariaDB | Change root pass
-      mysql_user: 
-        name: root 
-        host: "{{ item }}"
-        password: "{{ mysql_root_password}}"
-      with_items:
-        - "{{ansible_fqdn}}"
-        - 127.0.0.1
-        - ::1
-        - localhost
-
+    #- name: MariaDB | Change root pass
+    #  mysql_user: 
+    #    name: root 
+    #    host: "{{ item }}"
+    #    password: "{{ mysql_root_password}}"
+    #  with_items:
+    #    - "{{ansible_fqdn}}"
+    #    - 127.0.0.1
+    #    - ::1
+    #    - localhost
+#
     - name: MariaDB | Remove anonymous access
       mysql_user: 
         name: root 
@@ -44,12 +44,11 @@
     - name: MariaDB | Remove test database
       mysql_db: name=test state=absent
 
-     # when: mysql_root_pass.changed
     - name: MariaDB | Publish file .my.cnf in the root home
       template:
         src: client-my-cnf.j2
         dest: /root/.my.cnf
-        #when: mysql_root_pass.changed
+     
   
     - name: copy my.cnf
       copy:
