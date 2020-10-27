@@ -17,11 +17,11 @@
     dest: /etc/my.cnf
     mode: 0600
 
-- name: enable mysql
-  systemd:
-    name: mysqld
-    state: restarted
-    enabled: yes
+#- name: enable mysql
+#  systemd:
+#    name: mysqld
+#    state: restarted
+#    enabled: yes
 
 - name: get root password
   shell: "grep 'A temporary password is generated for root@localhost' /var/log/messages | awk -F ' ' '{print $(NF)}'"
