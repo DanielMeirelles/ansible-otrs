@@ -3,4 +3,5 @@
 #- include: 'repo.yml'
 #- include: 'so.yml'
 #- include: 'mariadb.yml'
-- include: 'web.yml'
+#- include: 'web.yml'
+- include: 'mysql8.yml'
