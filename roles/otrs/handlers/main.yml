@@ -1,6 +1,6 @@
 ---
 # handlers file for ansible-otrs
-  - name: restart mysqld
+  - name: restart mariadb
     ansible.builtin.service:
-      name: mysqld 
+      name: mariadb 
       state: restarted
